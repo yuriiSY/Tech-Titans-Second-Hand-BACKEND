@@ -1,17 +1,22 @@
 import Joi from "joi";
+import { model } from "mongoose";
 
 export const createCarSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
-  favorite: Joi.boolean(),
+  name: Joi.string(),
+  color: Joi.string(),
+  model: Joi.string(),
+  year: Joi.string(),
+  mileage: Joi.string(),
+  city: Joi.string(),
 });
 
 export const updateCarSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string(),
-  phone: Joi.string(),
-  favorite: Joi.boolean(),
+  color: Joi.string(),
+  model: Joi.string(),
+  year: Joi.string(),
+  mileage: Joi.string(),
+  city: Joi.string(),
 })
   .min(1)
   .required()

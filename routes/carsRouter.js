@@ -7,6 +7,8 @@ import {
   createCar,
   updateCar,
   updateStatusCar,
+  getCarsFavorites,
+  getCarsListByName,
 } from "../controllers/carsControllers.js";
 import validateBody from "../helpers/validateBody.js";
 import {
@@ -16,26 +18,21 @@ import {
 } from "../schemas/carsSchemas.js";
 import isValidId from "../midlewares/isValidId.js";
 import authenticate from "../midlewares/authenticate.js";
+import upload from "../midlewares/upload.js";
 
 const carsRouter = express.Router();
-//TODO
+
+carsRouter.get("/favorite", getCarsFavorites);
+
 carsRouter.get("/", getCars);
 
-carsRouter.use(authenticate);
+carsRouter.get("/search", getCarsListByName);
 
-carsRouter.get("/mycars", getAllUserCars);
-
-carsRouter.get("/:id", isValidId, getOneCars);
-
-carsRouter.delete("/:id", isValidId, deleteCar);
-
-carsRouter.post("/", validateBody(createCarSchema), createCar);
-
-carsRouter.put(
-  "/:id",
-  isValidId,
-  validateBody(updateCarSchema),
-  updateCar
+carsRouter.post(
+  "/",
+  upload.single("img"),
+  validateBody(createCarSchema),
+  createCar
 );
 
 carsRouter.patch(
@@ -44,5 +41,15 @@ carsRouter.patch(
   validateBody(updateCarStatusSchema),
   updateStatusCar
 );
+
+carsRouter.delete("/:id", isValidId, deleteCar);
+
+carsRouter.use(authenticate);
+
+carsRouter.get("/mycars", getAllUserCars);
+
+carsRouter.get("/:id", isValidId, getOneCars);
+
+carsRouter.put("/:id", isValidId, validateBody(updateCarSchema), updateCar);
 
 export default carsRouter;

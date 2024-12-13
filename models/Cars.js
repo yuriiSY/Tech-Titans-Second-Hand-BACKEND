@@ -6,10 +6,22 @@ const carsSchema = new Schema(
       type: String,
       required: [true, "Set car name, pls"],
     },
-    email: {
+    name: {
       type: String,
     },
-    phone: {
+    color: {
+      type: String,
+    },
+    model: {
+      type: String,
+    },
+    year: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    img: {
       type: String,
     },
     favorite: {

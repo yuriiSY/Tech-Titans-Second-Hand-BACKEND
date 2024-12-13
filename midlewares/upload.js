@@ -7,8 +7,8 @@ const destination = path.resolve("tmp");
 const storage = multer.diskStorage({
   destination,
   filename: (req, file, callback) => {
-    const { _id } = req.user;
-    const uniquePrefix = `${Date.now()}_${_id}`;
+    // const { _id } = req.user;
+    const uniquePrefix = `${Date.now()}_1`;
     const filename = `${uniquePrefix}_${file.originalname}`;
     callback(null, filename);
   },
@@ -26,6 +26,5 @@ const upload = multer({
   storage,
   fileFilter,
 });
-
 
 export default upload;
